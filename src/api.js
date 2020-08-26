@@ -43,6 +43,50 @@ export const api = async (app) => {
         return
     }
   }
+  async function del(path, headers) {
+    const fetched = await fetch(
+      path.startsWith('https') ? path : `http://localhost:5000${path}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(`freshair:token`)}`,
+          ...headers
+        }
+      }
+    )
+    switch (fetched.status) {
+      case 200:
+        return await fetched.json()
+      case 401:
+        window.location.href = `https://auth.freshair.radio/auth/${app}/login`
+        return
+      default:
+        window.location.href = `/error`
+        return
+    }
+  }
+  async function post(path, headers) {
+    const fetched = await fetch(
+      path.startsWith('https') ? path : `http://localhost:5000${path}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(`freshair:token`)}`,
+          ...headers
+        }
+      }
+    )
+    switch (fetched.status) {
+      case 200:
+        return await fetched.json()
+      case 401:
+        window.location.href = `https://auth.freshair.radio/auth/${app}/login`
+        return
+      default:
+        window.location.href = `/error`
+        return
+    }
+  }
   async function put(path, jsonBody) {
     const fetched = await fetch(
       path.startsWith('https') ? path : `http://localhost:5000${path}`,
@@ -68,6 +112,8 @@ export const api = async (app) => {
   }
   return {
     get,
+    post,
+    del,
     put
   }
 }

@@ -5,6 +5,7 @@
   import { stores } from '@sapper/app'
   import CloudUpload from '../../../../components/icons/CloudUpload.svelte'
   const { preloading, page, session } = stores()
+  import { goto } from '@sapper/app'
   const api = getContext(key).functions()
   let show
   let episode
@@ -28,7 +29,7 @@
     })
   }
   const updateEpisode = () => {
-    if (dirty && episode && episode.title) {
+    if (dirty && episode && episode.identifier) {
       updating = true
       dirty = false
       api
@@ -41,11 +42,18 @@
         })
     }
   }
+  const deleteEpisode = () => {
+    api
+      .del(`/shows/${show.identifier}/episodes/${episode.identifier}`)
+      .then((s) => {
+        goto(`/shows/${show.slug}`)
+      })
+  }
 
   $: reloadShow($page.params.slug)
 
   $: {
-    if (episode && episode.title) {
+    if (episode && episode.identifier) {
       if (skipInitial) skipInitial = false
       else dirty = true
     }
@@ -117,11 +125,23 @@
       </h2>
     </div>
     <div class="mt-4 flex md:mt-0 md:ml-4">
-      <span class=" text-gray-700">
+      <span class=" text-gray-700 flex items-center">
         {#if updating || dirty}
           Saving
           <CloudUpload tailwind="w-6 h-6 inline ml-1" />
         {:else}Saved{/if}
+      </span>
+      <span class="ml-6 shadow-sm rounded-md">
+        <button
+          on:click={deleteEpisode}
+          type="button"
+          class="inline-flex items-center px-4 py-2 border border-transparent
+          text-sm leading-5 font-medium rounded-md text-white bg-red-600
+          hover:bg-red-500 focus:outline-none focus:shadow-outline-red
+          focus:border-red-700 active:bg-red-700 transition duration-150
+          ease-in-out">
+          Delete Episode
+        </button>
       </span>
 
     </div>
@@ -198,8 +218,8 @@
                     class="text-sm leading-5 text-gray-600 sm:flex
                     sm:items-center">
 
-                    <div class="mt-1 sm:mt-0">
-                      {episode.meta && episode.meta.length ? episode.meta.length : '...'}
+                    <div class="">
+                      {episode.meta && episode.meta.length ? `${(episode.meta.length / 60).toPrecision(2)} minutes` : '...'}
                     </div>
                   </div>
                 </div>

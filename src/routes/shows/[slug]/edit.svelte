@@ -24,7 +24,7 @@
     })
   }
   const updateShow = () => {
-    if (dirty && show && show.title) {
+    if (dirty && show && show.identifier) {
       updating = true
       dirty = false
       api.put(`/shows/${show.identifier}`, show).then((s) => {
@@ -35,7 +35,7 @@
   $: reloadShow($page.params.slug)
 
   $: {
-    if (show && show.title) {
+    if (show && show.identifier) {
       if (skipInitial) skipInitial = false
       else dirty = true
     }

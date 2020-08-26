@@ -2,8 +2,9 @@
   import { key } from '../../../api'
   import { getContext, onMount } from 'svelte'
   import { fade } from 'svelte/transition'
-  import { stores } from '@sapper/app'
+  import { stores, goto } from '@sapper/app'
   import moment from 'moment'
+  import { sortBy } from 'lodash'
   import Clock from '../../../components/icons/Clock.svelte'
   const { preloading, page, session } = stores()
   const api = getContext(key).functions()
@@ -11,9 +12,19 @@
   // onMount(() => {
   //   api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
   // })
+  const reloadShow = (slug) => {
+    api.get(`/shows/${slug}`).then((s) => {
+      show = s
+    })
+  }
   $: {
     show = null
     api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
+  }
+  const createEpisode = () => {
+    api.post(`/shows/${show.identifier}/episodes`).then((s) => {
+      goto(`/shows/${$page.params.slug}/episodes/${s.identifier}`)
+    })
   }
 </script>
 
@@ -110,9 +121,21 @@
         </dl>
       </div>
     </div>
+    <div class="mt-10 flex items-center justify-center">
+      <button
+        on:click={createEpisode}
+        type="button"
+        class="inline-flex items-center px-4 py-2 border border-transparent
+        text-sm leading-5 font-medium rounded-full text-white bg-indigo-600
+        hover:bg-indigo-500 focus:outline-none focus:shadow-outline-indigo
+        focus:border-indigo-700 active:bg-indigo-700 transition duration-150
+        ease-in-out">
+        Add Episode
+      </button>
+    </div>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-10 mb-15">
       <ul>
-        {#each show.episodes as episode, i}
+        {#each sortBy(show.episodes, 'created').reverse() as episode, i}
           <li class={i !== 0 ? 'border-t border-gray-200' : ''}>
             <a
               href="/shows/{$page.params.slug}/episodes/{episode.identifier}"
@@ -150,9 +173,9 @@
 
                     <span>
                       <time
-                        datetime={moment(episode.published).toISOString()}
-                        title={moment(episode.published).format('DD/MM/YYYY')}>
-                        {moment(episode.published).fromNow()}
+                        datetime={moment(episode.created).toISOString()}
+                        title={moment(episode.created).format('DD/MM/YYYY')}>
+                        {moment(episode.created).fromNow()}
                       </time>
                     </span>
                   </div>
