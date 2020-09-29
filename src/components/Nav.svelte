@@ -1,18 +1,19 @@
 <script>
-  import MobileNav from './MobileNav.svelte'
-  import DesktopNav from './DesktopNav.svelte'
-  import DesktopNavItem from './DesktopNavItem.svelte'
-  import Microphone from './icons/Microphone.svelte'
-  import { onMount, getContext } from 'svelte'
-  import { key } from '../api.js'
-  import { stores } from '@sapper/app'
-  import ViewGrid from './icons/ViewGrid.svelte'
-  const { preloading, page, session } = stores()
-  const api = getContext(key).functions()
-  let shows = []
+  import MobileNav from "./MobileNav.svelte";
+  import DesktopNav from "./DesktopNav.svelte";
+  import DesktopNavItem from "./DesktopNavItem.svelte";
+  import Microphone from "./icons/Microphone.svelte";
+  import { onMount, getContext } from "svelte";
+  import { key } from "../api.js";
+  import { stores } from "@sapper/app";
+  import ViewGrid from "./icons/ViewGrid.svelte";
+  import Users from "./icons/Users.svelte";
+  const { preloading, page, session } = stores();
+  const api = getContext(key).functions();
+  let shows = [];
   onMount(() => {
-    api.get('/shows').then((s) => (shows = s))
-  })
+    api.get("/shows").then((s) => (shows = s));
+  });
 </script>
 
 <!-- {@debug shows} -->
@@ -36,5 +37,10 @@
       text={show.title}
       icon={Microphone} />
   {/each}
-
+  <DesktopNavItem
+    active={$page.path === '/users'}
+    first={true}
+    href="/users"
+    text="Users"
+    icon={Users} />
 </DesktopNav>
