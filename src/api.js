@@ -1,3 +1,4 @@
+const BASE_API = "https://api.freshair.radio";
 export const api = async (app) => {
   const url = new URL(window.location.href);
   if (url.pathname.startsWith(`/identify`)) {
@@ -24,7 +25,7 @@ export const api = async (app) => {
   const user = await fetched.json();
   async function get(path, headers) {
     const fetched = await fetch(
-      path.startsWith("https") ? path : `https://members.freshair.radio${path}`,
+      path.startsWith("https") ? path : `${BASE_API}${path}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(`freshair:token`)}`,
@@ -45,7 +46,7 @@ export const api = async (app) => {
   }
   async function del(path, headers) {
     const fetched = await fetch(
-      path.startsWith("https") ? path : `https://members.freshair.radio${path}`,
+      path.startsWith("https") ? path : `${BASE_API}${path}`,
       {
         method: "DELETE",
         headers: {
@@ -67,7 +68,7 @@ export const api = async (app) => {
   }
   async function post(path, headers) {
     const fetched = await fetch(
-      path.startsWith("https") ? path : `https://members.freshair.radio${path}`,
+      path.startsWith("https") ? path : `${BASE_API}${path}`,
       {
         method: "POST",
         headers: {
@@ -89,7 +90,7 @@ export const api = async (app) => {
   }
   async function put(path, jsonBody) {
     const fetched = await fetch(
-      path.startsWith("https") ? path : `https://members.freshair.radio${path}`,
+      path.startsWith("https") ? path : `${BASE_API}${path}`,
       {
         body: JSON.stringify(jsonBody),
         method: "PUT",

@@ -1,9 +1,9 @@
-import * as sapper from '@sapper/app'
-import { api } from './api'
+import * as sapper from "@sapper/app";
+import { api } from "./api";
 if (window)
-  api('manage').then((app) => {
-    window.api = app
+  api("members").then((app) => {
+    window.api = app;
     sapper.start({
-      target: document.querySelector('#sapper')
-    })
-  })
+      target: document.querySelector("#sapper")
+    });
+  });
