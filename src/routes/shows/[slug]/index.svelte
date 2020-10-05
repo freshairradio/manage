@@ -1,31 +1,31 @@
 <script>
-  import { key } from '../../../api'
-  import { getContext, onMount } from 'svelte'
-  import { fade } from 'svelte/transition'
-  import { stores, goto } from '@sapper/app'
-  import moment from 'moment'
-  import { sortBy } from 'lodash'
-  import Clock from '../../../components/icons/Clock.svelte'
-  const { preloading, page, session } = stores()
-  const api = getContext(key).functions()
-  let show
+  import { key } from "../../../api";
+  import { getContext, onMount } from "svelte";
+  import { fade } from "svelte/transition";
+  import { stores, goto } from "@sapper/app";
+  import moment from "moment";
+  import { sortBy } from "lodash";
+  import Clock from "../../../components/icons/Clock.svelte";
+  const { preloading, page, session } = stores();
+  const api = getContext(key).functions();
+  let show;
   // onMount(() => {
   //   api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
   // })
   const reloadShow = (slug) => {
     api.get(`/shows/${slug}`).then((s) => {
-      show = s
-    })
-  }
+      show = s;
+    });
+  };
   $: {
-    show = null
-    api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
+    show = null;
+    api.get(`/shows/${$page.params.slug}`).then((s) => (show = s));
   }
   const createEpisode = () => {
     api.post(`/shows/${show.identifier}/episodes`).then((s) => {
-      goto(`/shows/${$page.params.slug}/episodes/${s.identifier}`)
-    })
-  }
+      goto(`/shows/${$page.params.slug}/episodes/${s.identifier}`);
+    });
+  };
 </script>
 
 <svelte:head>
@@ -33,7 +33,6 @@
 </svelte:head>
 {#if show}
   <div class="md:flex md:items-center md:justify-between" in:fade>
-
     <div class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl mt-1
@@ -53,7 +52,6 @@
           Edit Details
         </a>
       </span>
-
     </div>
   </div>
 
@@ -64,7 +62,6 @@
       <img
         src={show.picture || '/default-show.png'}
         alt="{show.title}'s image'" />
-
     </div>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-10">
       <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
@@ -117,7 +114,6 @@
               {show.description}
             </dd>
           </div>
-
         </dl>
       </div>
     </div>
@@ -165,12 +161,10 @@
                         tailwind="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" />
                       {episode.meta && episode.meta.length ? episode.meta.length : '...'}
                     </div>
-
                   </div>
                   <div
                     class="mt-2 flex items-center text-sm leading-5
                     text-gray-500 sm:mt-0">
-
                     <span>
                       <time
                         datetime={moment(episode.created).toISOString()}
@@ -184,9 +178,7 @@
             </a>
           </li>
         {/each}
-
       </ul>
     </div>
-
   </div>
 {/if}

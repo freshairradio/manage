@@ -1,19 +1,24 @@
 <script>
-  import { key } from '../api'
-  import { getContext, onMount } from 'svelte'
-  import { fade } from 'svelte/transition'
-  import { stores } from '@sapper/app'
-  import moment from 'moment'
-  import Clock from '../components/icons/Clock.svelte'
-  const { preloading, page, session } = stores()
-  const api = getContext(key).functions()
-  let shows
+  import { key } from "../api";
+  import { getContext, onMount } from "svelte";
+  import { fade } from "svelte/transition";
+  import { stores, goto } from "@sapper/app";
+  import moment from "moment";
+  import Clock from "../components/icons/Clock.svelte";
+  const { preloading, page, session } = stores();
+  const api = getContext(key).functions();
+  let shows;
   // onMount(() => {
   //   api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
   // })
-  $: {
-    api.get(`/shows`).then((s) => (shows = s))
-  }
+  onMount(() => {
+    api.get(`/shows`).then((s) => {
+      shows = s;
+      if (shows.length == 0) {
+        goto("/start");
+      }
+    });
+  });
 </script>
 
 <svelte:head>
@@ -21,7 +26,6 @@
 </svelte:head>
 {#if shows}
   <div class="md:flex md:items-center md:justify-between" in:fade>
-
     <div class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl mt-1
@@ -29,11 +33,9 @@
         Your shows
       </h2>
     </div>
-
   </div>
 
   <div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8">
-
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-10 mb-15">
       <ul>
         {#each shows as show, i}
@@ -78,9 +80,7 @@
             </a>
           </li>
         {/each}
-
       </ul>
     </div>
-
   </div>
 {/if}

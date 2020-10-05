@@ -37,10 +37,5 @@
       text={show.title}
       icon={Microphone} />
   {/each}
-  <DesktopNavItem
-    active={$page.path === '/users'}
-    first={true}
-    href="/users"
-    text="Users"
-    icon={Users} />
+
 </DesktopNav>

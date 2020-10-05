@@ -115,7 +115,8 @@ export const api = async (app) => {
     get,
     post,
     del,
-    put
+    put,
+    user
   };
 };
 export const key = Symbol("freshair:api");
