@@ -1,100 +1,100 @@
 <script>
-  import { key } from '../../../api'
-  import { fade } from 'svelte/transition'
-  import { getContext, onMount } from 'svelte'
-  import { stores } from '@sapper/app'
-  import CloudUpload from '../../../components/icons/CloudUpload.svelte'
-  const { preloading, page, session } = stores()
-  const api = getContext(key).functions()
-  let show
-  let updating = false
-  let dirty = false
-  let skipInitial = true
-  let updater
+  import { key } from "../../../api";
+  import { fade } from "svelte/transition";
+  import { getContext, onMount } from "svelte";
+  import { stores } from "@sapper/app";
+  import CloudUpload from "../../../components/icons/CloudUpload.svelte";
+  const { preloading, page, session } = stores();
+  const api = getContext(key).functions();
+  let show;
+  let updating = false;
+  let dirty = false;
+  let skipInitial = true;
+  let updater;
   onMount(() => {
-    updater = setInterval(updateShow, 3000)
-    return () => clearInterval(updater)
-  })
+    updater = setInterval(updateShow, 3000);
+    return () => clearInterval(updater);
+  });
   // onMount(() => {
   //   api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
   // })
   const reloadShow = (slug) => {
     api.get(`/shows/${slug}`).then((s) => {
-      show = s
-    })
-  }
+      show = s;
+    });
+  };
   const updateShow = () => {
     if (dirty && show && show.identifier) {
-      updating = true
-      dirty = false
+      updating = true;
+      dirty = false;
       api.put(`/shows/${show.identifier}`, show).then((s) => {
-        updating = false
-      })
+        updating = false;
+      });
     }
-  }
-  $: reloadShow($page.params.slug)
+  };
+  $: reloadShow($page.params.slug);
 
   $: {
     if (show && show.identifier) {
-      if (skipInitial) skipInitial = false
-      else dirty = true
+      if (skipInitial) skipInitial = false;
+      else dirty = true;
     }
   }
 
-  let file
-  let cls
-  let percentage = 0
+  let file;
+  let cls;
+  let percentage = 0;
   const chooseFile = (e) => {
-    cls = 'border-blue-500'
-    console.log(e)
-    file.click()
-  }
+    cls = "border-blue-500";
+    console.log(e);
+    file.click();
+  };
   const dropFile = (e) => {
-    const dt = e.dataTransfer
-    const files = dt.files
-    uploadFile({ target: { files } })
-  }
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    uploadFile({ target: { files } });
+  };
   const uploadFile = async (e) => {
-    let file = e.target.files[0]
-    if (!file) return
-    const upload = await api.get('https://upload.freshair.radio/upload', {
-      'Content-Type': file.type
-    })
-    const reader = new FileReader()
-    const xhr = new XMLHttpRequest()
+    let file = e.target.files[0];
+    if (!file) return;
+    const upload = await api.get("https://upload.freshair.radio/upload", {
+      "Content-Type": file.type
+    });
+    const reader = new FileReader();
+    const xhr = new XMLHttpRequest();
     xhr.upload.addEventListener(
-      'progress',
+      "progress",
       (e) => {
         if (e.lengthComputable) {
-          percentage = Math.round((e.loaded * 100) / e.total)
-          console.log(percentage)
+          percentage = Math.round((e.loaded * 100) / e.total);
+          console.log(percentage);
         }
       },
       false
-    )
+    );
 
     xhr.upload.addEventListener(
-      'load',
+      "load",
       (e) => {
-        percentage = 100
-        show.picture = upload.access
-        setTimeout(() => (percentage = 0), 500)
+        percentage = 100;
+        show.picture = upload.access;
+        setTimeout(() => (percentage = 0), 500);
       },
       false
-    )
-    xhr.open('PUT', upload.signed)
-    xhr.setRequestHeader('x-amz-acl', 'public-read')
-    xhr.setRequestHeader('Content-Type', file.type)
-    xhr.overrideMimeType(file.type)
+    );
+    xhr.open("PUT", upload.signed);
+    xhr.setRequestHeader("x-amz-acl", "public-read");
+    xhr.setRequestHeader("Content-Type", file.type);
+    xhr.overrideMimeType(file.type);
     reader.onload = function (evt) {
-      xhr.send(evt.target.result)
-    }
-    reader.readAsArrayBuffer(file)
-  }
+      xhr.send(evt.target.result);
+    };
+    reader.readAsArrayBuffer(file);
+  };
   const dragenter = (e) => {
-    console.log(e)
-    cls = 'border-blue-500'
-  }
+    console.log(e);
+    cls = "border-blue-500";
+  };
 </script>
 
 <svelte:head>
@@ -102,7 +102,6 @@
 </svelte:head>
 {#if show}
   <div class="md:flex md:items-center md:justify-between" in:fade>
-
     <div class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl mt-1
@@ -117,7 +116,6 @@
           <CloudUpload tailwind="w-6 h-6 inline ml-1" />
         {:else}Saved{/if}
       </span>
-
     </div>
   </div>
 
@@ -183,7 +181,6 @@
                 rounded-r-md sm:text-sm sm:leading-5"
                 placeholder="handle..." />
             </div>
-
           </div>
           <div class="sm:col-span-1">
             <label
@@ -204,7 +201,6 @@
                 rounded-r-md sm:text-sm sm:leading-5"
                 placeholder="username..." />
             </div>
-
           </div>
           <div class="sm:col-span-1">
             <label
@@ -233,7 +229,6 @@
               Primary Category
             </label>
             <div class="mt-1 flex rounded-md shadow-sm">
-
               <input
                 id="slug"
                 bind:value={show.meta.category}
@@ -242,6 +237,102 @@
                 placeholder="Category..." />
             </div>
           </div>
+          <div class="sm:col-span-1">
+            <label
+              for="instagram"
+              class="block text-sm font-medium leading-5 text-gray-500">
+              Byline
+            </label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <span
+                class="inline-flex items-center px-3 rounded-l-md border
+                border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                hosted by
+              </span>
+              <input
+                id="byline"
+                bind:value={show.meta.byline}
+                class="form-input flex-1 block w-full px-3 py-2 rounded-none
+                rounded-r-md sm:text-sm sm:leading-5"
+                placeholder="Ant & Dec" />
+            </div>
+          </div>
+          {#if api.user.role == 'admin'}
+            <div class="sm:col-span-1">
+              <label
+                for="slug"
+                class="block text-sm font-medium leading-5 text-gray-500">
+                Broadcast Time
+              </label>
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <input
+                  id="time"
+                  type="time"
+                  bind:value={show.meta.time}
+                  class="form-input flex-1 block w-full px-3 py-2 rounded-md
+                sm:text-sm sm:leading-5"
+                  placeholder="3pm" />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="slug"
+                class="block text-sm font-medium leading-5 text-gray-500">
+                Broadcast Day
+              </label>
+              <div class="mt-2 flex">
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 0)}
+                  class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 0 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Monday
+                </button>
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 1)}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 1 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Tuesday
+                </button>
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 2)}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 2 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Wednesday
+                </button>
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 3)}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 3 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Thursday
+                </button>
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 4)}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 4 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Friday
+                </button>
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 5)}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 5 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Saturday
+                </button>
+                <button
+                  type="button"
+                  on:click={() => (show.meta.day = 6)}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 6 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                  Sunday
+                </button>
+
+                <!-- <input
+                id="slug"
+                bind:value={show.meta.category}
+                class="form-input flex-1 block w-full px-3 py-2 rounded-md
+                sm:text-sm sm:leading-5"
+                placeholder="Category..." /> -->
+              </div>
+            </div>
+          {/if}
           <div class="sm:col-span-2">
             <label
               for="description"
@@ -258,7 +349,6 @@
             </div>
 
           </div>
-
         </dl>
       </div>
     </div>
