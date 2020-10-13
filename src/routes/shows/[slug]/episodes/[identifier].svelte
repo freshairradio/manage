@@ -1,114 +1,115 @@
 <script>
-  import { key } from '../../../../api'
-  import { fade } from 'svelte/transition'
-  import { getContext, onMount } from 'svelte'
-  import { stores } from '@sapper/app'
-  import CloudUpload from '../../../../components/icons/CloudUpload.svelte'
-  const { preloading, page, session } = stores()
-  import { goto } from '@sapper/app'
-  const api = getContext(key).functions()
-  let show
-  let episode
-  let updating = false
-  let dirty = false
-  let skipInitial = true
-  let updater
+  import { key } from "../../../../api";
+  import { fade } from "svelte/transition";
+  import { getContext, onMount } from "svelte";
+  import moment from "moment";
+  import { stores } from "@sapper/app";
+  import CloudUpload from "../../../../components/icons/CloudUpload.svelte";
+  const { preloading, page, session } = stores();
+  import { goto } from "@sapper/app";
+  const api = getContext(key).functions();
+  let show;
+  let episode;
+  let updating = false;
+  let dirty = false;
+  let skipInitial = true;
+  let updater;
   onMount(() => {
-    updater = setInterval(updateEpisode, 3000)
-    return () => clearInterval(updater)
-  })
+    updater = setInterval(updateEpisode, 3000);
+    return () => clearInterval(updater);
+  });
   // onMount(() => {
   //   api.get(`/shows/${$page.params.slug}`).then((s) => (show = s))
   // })
   const reloadShow = (slug) => {
     api.get(`/shows/${slug}`).then((s) => {
-      show = s
+      show = s;
       episode = s
         ? s.episodes.find((e) => e.identifier == $page.params.identifier)
-        : null
-    })
-  }
+        : null;
+    });
+  };
   const updateEpisode = () => {
     if (dirty && episode && episode.identifier) {
-      updating = true
-      dirty = false
+      updating = true;
+      dirty = false;
       api
         .put(
           `/shows/${show.identifier}/episodes/${episode.identifier}`,
           episode
         )
         .then((s) => {
-          updating = false
-        })
+          updating = false;
+        });
     }
-  }
+  };
   const deleteEpisode = () => {
     api
       .del(`/shows/${show.identifier}/episodes/${episode.identifier}`)
       .then((s) => {
-        goto(`/shows/${show.slug}`)
-      })
-  }
+        goto(`/shows/${show.slug}`);
+      });
+  };
 
-  $: reloadShow($page.params.slug)
+  $: reloadShow($page.params.slug);
 
   $: {
     if (episode && episode.identifier) {
-      if (skipInitial) skipInitial = false
-      else dirty = true
+      if (skipInitial) skipInitial = false;
+      else dirty = true;
     }
   }
-  let file
-  let cls
-  let percentage = 0
+  let file;
+  let cls;
+  let percentage = 0;
   const chooseFile = (e) => {
-    cls = 'border-blue-500'
-    console.log(e)
-    file.click()
-  }
+    cls = "border-blue-500";
+    console.log(e);
+    file.click();
+  };
   const dropFile = (e) => {
-    const dt = e.dataTransfer
-    const files = dt.files
-    uploadFile({ target: { files } })
-  }
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    uploadFile({ target: { files } });
+  };
   const uploadFile = async (e) => {
-    let file = e.target.files[0]
-    if (!file) return
-    const upload = await api.get('https://upload.freshair.radio/upload')
-    const reader = new FileReader()
-    const xhr = new XMLHttpRequest()
+    let file = e.target.files[0];
+    if (!file) return;
+    const upload = await api.get("https://upload.freshair.radio/upload");
+    const reader = new FileReader();
+    const xhr = new XMLHttpRequest();
     xhr.upload.addEventListener(
-      'progress',
+      "progress",
       (e) => {
         if (e.lengthComputable) {
-          percentage = Math.round((e.loaded * 100) / e.total)
-          console.log(percentage)
+          percentage = Math.round((e.loaded * 100) / e.total);
+          console.log(percentage);
         }
       },
       false
-    )
+    );
 
     xhr.upload.addEventListener(
-      'load',
+      "load",
       (e) => {
-        percentage = 100
-        episode.audio = upload.access
+        percentage = 100;
+        episode.audio = upload.access;
       },
       false
-    )
-    xhr.open('PUT', upload.signed)
-    xhr.setRequestHeader('x-amz-acl', 'public-read')
-    xhr.setRequestHeader('Content-Type', 'audio/mpeg')
-    xhr.overrideMimeType('audio/mpeg')
+    );
+    xhr.open("PUT", upload.signed);
+    xhr.setRequestHeader("x-amz-acl", "public-read");
+    xhr.setRequestHeader("Content-Type", "audio/mpeg");
+    xhr.overrideMimeType("audio/mpeg");
     reader.onload = function (evt) {
-      xhr.send(evt.target.result)
-    }
-    reader.readAsArrayBuffer(file)
-  }
+      xhr.send(evt.target.result);
+    };
+    reader.readAsArrayBuffer(file);
+  };
   const dragenter = (e) => {
-    console.log(e)
-    cls = 'border-blue-500'
-  }
+    console.log(e);
+    cls = "border-blue-500";
+  };
 </script>
 
 <svelte:head>
@@ -116,7 +117,6 @@
 </svelte:head>
 {#if show}
   <div class="md:flex md:items-center md:justify-between" in:fade>
-
     <div class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl mt-1
@@ -143,18 +143,15 @@
           Delete Episode
         </button>
       </span>
-
     </div>
   </div>
 
   <div class="max-w-3xl mx-auto px-4 sm:px-6 md:px-8">
-
     <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-15 mb-15">
       <div class="px-4 py-5 pb-0 sm:px-6">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
           Episode Details
         </h3>
-
       </div>
       <div class="px-4 py-5 sm:px-6 ">
         <dl class="grid grid-cols-1 col-gap-4 row-gap-4 sm:grid-cols-2">
@@ -187,10 +184,73 @@
                 class="form-textarea block w-full transition duration-150
                 ease-in-out sm:text-sm sm:leading-5 resize-none" />
             </div>
-
           </div>
+          <div class="sm:col-span-2">
+            <label
+              for="slug"
+              class="block text-sm font-medium leading-5 text-gray-500">
+              Broadcast in week starting...
+            </label>
+            <div class="mt-2 flex">
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-10-11'))}
+                class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-10-11')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                12th Oct
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-10-18'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-10-18')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                19th Oct
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-10-25'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-10-25')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                26th Oct
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-11-01'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-01')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                2nd Nov
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-11-08'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-08')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                9th Nov
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-11-15'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-15')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                16th Nov
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-11-22'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-22')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                23rd Nov
+              </button>
+              <button
+                type="button"
+                on:click={() => (episode.scheduling.week = moment('2020-11-29'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-29')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                30th Nov
+              </button>
 
+              <!-- <input
+              id="slug"
+              bind:value={show.meta.category}
+              class="form-input flex-1 block w-full px-3 py-2 rounded-md
+              sm:text-sm sm:leading-5"
+              placeholder="Category..." /> -->
+            </div>
+          </div>
         </dl>
+
         {#if episode.audio}
           <div class="mt-5">
             <div
@@ -285,6 +345,5 @@
         {/if}
       </div>
     </div>
-
   </div>
 {/if}
