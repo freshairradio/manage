@@ -66,15 +66,17 @@ export const api = async (app) => {
         return;
     }
   }
-  async function post(path, headers) {
+  async function post(path, headers, body) {
     const fetched = await fetch(
       path.startsWith("https") ? path : `${BASE_API}${path}`,
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem(`freshair:token`)}`,
+          "Content-Type": "application/json",
           ...headers
-        }
+        },
+        body: JSON.stringify(body)
       }
     );
     switch (fetched.status) {

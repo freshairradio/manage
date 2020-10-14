@@ -110,6 +110,16 @@
     console.log(e);
     cls = "border-blue-500";
   };
+  const triggerProcessing = () => {
+    api.post(
+      "https://media-worker.freshair.radio/process",
+      {},
+      {
+        audio: episode.audio,
+        update_url: `https://api.freshair.radio/shows/${show.identifier}/episodes/${episode.identifier}/meta`
+      }
+    );
+  };
 </script>
 
 <svelte:head>
@@ -293,6 +303,14 @@
               </div>
             </div>
           </div>
+          {#if api.user.role == 'admin'} 
+            <button
+              type="button"
+              on:click={triggerProcessing}
+              class="mt-5 flex-grow relative items-center px-4 py-2 w-full text-center block rounded-md shadow shadow-sm  text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 bg-blue-400 text-white">
+              Retry Processing
+            </button>
+          {/if}
         {:else}
           <div
             class="mt-5 cursor-pointer"
