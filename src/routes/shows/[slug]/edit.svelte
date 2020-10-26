@@ -266,6 +266,7 @@
               </label>
               <div class="mt-1 flex rounded-md shadow-sm">
                 <a
+                  target="__blank"
                   href="https://podcastsconnect.apple.com/my-podcasts/new-feed?submitfeed=https://freshair.nyc3.digitaloceanspaces.com/rssfeed/${show.slug}.xml"
                   class="form-input flex-1 block w-full px-3 py-2 rounded-md
               sm:text-sm sm:leading-5"
