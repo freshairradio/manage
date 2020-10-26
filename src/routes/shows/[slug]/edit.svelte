@@ -258,6 +258,20 @@
             </div>
           </div>
           {#if api.user.role == 'admin'}
+            <div class="sm:col-span-2">
+              <label
+                for="slug"
+                class="block text-sm font-medium leading-5 text-gray-500">
+                Validate for Apple Podcasts
+              </label>
+              <div class="mt-1 flex rounded-md shadow-sm">
+                <a
+                  href="https://podcastsconnect.apple.com/my-podcasts/new-feed?submitfeed=https://freshair.nyc3.digitaloceanspaces.com/rssfeed/${show.slug}.xml"
+                  class="form-input flex-1 block w-full px-3 py-2 rounded-md
+              sm:text-sm sm:leading-5"
+                  placeholder="3pm">Validate</a>
+              </div>
+            </div>
             <div class="sm:col-span-1">
               <label
                 for="slug"
@@ -347,7 +361,6 @@
                 class="form-textarea block w-full transition duration-150
                 ease-in-out sm:text-sm sm:leading-5 resize-none" />
             </div>
-
           </div>
         </dl>
       </div>
