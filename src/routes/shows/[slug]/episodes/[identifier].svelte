@@ -204,52 +204,47 @@
             <div class="mt-2 flex">
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-10-11'))}
-                class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-10-11')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                12th Oct
+                on:click={() => (episode.scheduling.week = moment('2021-01-17'))}
+                class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-01-17')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                18th Jan
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-10-18'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-10-18')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                19th Oct
+                on:click={() => (episode.scheduling.week = moment('2021-01-24'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-01-24')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                25th Jan
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-10-25'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-10-25')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                26th Oct
+                on:click={() => (episode.scheduling.week = moment('2021-01-31'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-01-31')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                1st Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-11-01'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-01')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                2nd Nov
+                on:click={() => (episode.scheduling.week = moment('2021-02-07'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-07')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                8th Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-11-08'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-08')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                9th Nov
+                on:click={() => (episode.scheduling.week = moment('2021-02-14'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-14')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                15th Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-11-15'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-15')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                16th Nov
+                on:click={() => (episode.scheduling.week = moment('2021-02-21'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-21')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                22nd Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-11-22'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-22')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                23rd Nov
+                on:click={() => (episode.scheduling.week = moment('2021-02-28'))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-28')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                29th Feb
               </button>
-              <button
-                type="button"
-                on:click={() => (episode.scheduling.week = moment('2020-11-29'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2020-11-29')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                30th Nov
-              </button>
+            
 
               <!-- <input
               id="slug"
