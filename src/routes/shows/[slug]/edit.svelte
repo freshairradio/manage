@@ -98,14 +98,15 @@
 </script>
 
 <svelte:head>
-  <title>{show ? show.title : '...'}</title>
+  <title>{show ? show.title : "..."}</title>
 </svelte:head>
 {#if show}
   <div class="md:flex md:items-center md:justify-between" in:fade>
     <div class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl mt-1
-        sm:leading-9 sm:truncate">
+        sm:leading-9 sm:truncate"
+      >
         {show.title}
       </h2>
     </div>
@@ -127,25 +128,30 @@
       on:click={chooseFile}
       on:dragenter|preventDefault|stopPropagation={dragenter}
       on:dragover|preventDefault|stopPropagation={dragenter}
-      on:dragleave|preventDefault|stopPropagation={() => (cls = '')}
-      on:drop|preventDefault|stopPropagation={dropFile}>
+      on:dragleave|preventDefault|stopPropagation={() => (cls = "")}
+      on:drop|preventDefault|stopPropagation={dropFile}
+    >
       <input
         bind:this={file}
         on:change={uploadFile}
         type="file"
         accept="image/*"
-        class="hidden" />
+        class="hidden"
+      />
       <img
         class="row-start-1 row-end-2 col-start-1 col-end-2 object-cover"
         style="filter:blur(2px)"
-        src={show.picture || '/default-show.png'}
-        alt="{show.title}'s image'" />
+        src={show.picture || "/default-show.png"}
+        alt="{show.title}'s image'"
+      />
       <div
         class=" absolute bg-blue-500 h-full top-0 left-0"
-        style="width: {percentage}%; transition: width .2s" />
+        style="width: {percentage}%; transition: width .2s"
+      />
       <div
         class="text-lg leading-5 text-white row-start-1 row-end-2 col-start-1
-        col-end-2 z-10 mx-4 text-center bg-gray-600 p-1 py-2 rounded-full">
+        col-end-2 z-10 mx-4 text-center bg-gray-600 p-1 py-2 rounded-full"
+      >
         <div class="sm:mt-0">Drag and drop or click to upload</div>
       </div>
     </div>
@@ -179,7 +185,8 @@
                 bind:value={show.meta.twitter}
                 class="form-input flex-1 block w-full px-3 py-2 rounded-none
                 rounded-r-md sm:text-sm sm:leading-5"
-                placeholder="handle..." />
+                placeholder="handle..."
+              />
             </div>
           </div>
           <div class="sm:col-span-1">
@@ -199,7 +206,8 @@
                 bind:value={show.meta.facebook}
                 class="form-input flex-1 block w-full px-3 py-2 rounded-none
                 rounded-r-md sm:text-sm sm:leading-5"
-                placeholder="username..." />
+                placeholder="username..."
+              />
             </div>
           </div>
           <div class="sm:col-span-1">
@@ -219,7 +227,8 @@
                 bind:value={show.meta.instagram}
                 class="form-input flex-1 block w-full px-3 py-2 rounded-none
                 rounded-r-md sm:text-sm sm:leading-5"
-                placeholder="username..." />
+                placeholder="username..."
+              />
             </div>
           </div>
           <div class="sm:col-span-1">
@@ -234,7 +243,8 @@
                 bind:value={show.meta.category}
                 class="form-input flex-1 block w-full px-3 py-2 rounded-md
                 sm:text-sm sm:leading-5"
-                placeholder="Category..." />
+                placeholder="Category..."
+              />
             </div>
           </div>
           <div class="sm:col-span-1">
@@ -254,10 +264,11 @@
                 bind:value={show.meta.byline}
                 class="form-input flex-1 block w-full px-3 py-2 rounded-none
                 rounded-r-md sm:text-sm sm:leading-5"
-                placeholder="Ant & Dec" />
+                placeholder="Ant & Dec"
+              />
             </div>
           </div>
-          {#if api.user.role == 'admin'}
+          {#if api.user.role == "admin"}
             <div class="sm:col-span-2">
               <label
                 for="slug"
@@ -270,7 +281,8 @@
                   href="https://podcastsconnect.apple.com/my-podcasts/new-feed?submitfeed=https://freshair.nyc3.digitaloceanspaces.com/rssfeed/{show.slug}.xml"
                   class="form-input flex-1 block w-full px-3 py-2 rounded-md
               sm:text-sm sm:leading-5 bg-blue-500"
-                  placeholder="3pm">Validate</a>
+                  placeholder="3pm">Validate</a
+                >
               </div>
             </div>
             <div class="sm:col-span-1">
@@ -286,7 +298,8 @@
                   bind:value={show.meta.time}
                   class="form-input flex-1 block w-full px-3 py-2 rounded-md
                 sm:text-sm sm:leading-5"
-                  placeholder="3pm" />
+                  placeholder="3pm"
+                />
               </div>
             </div>
             <div class="sm:col-span-2">
@@ -299,45 +312,52 @@
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 0)}
-                  class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 0 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Monday
-                </button>
+                  class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 0
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Monday </button>
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 1)}
-                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 1 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Tuesday
-                </button>
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 1
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Tuesday </button>
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 2)}
-                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 2 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Wednesday
-                </button>
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 2
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Wednesday </button>
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 3)}
-                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 3 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Thursday
-                </button>
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 3
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Thursday </button>
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 4)}
-                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 4 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Friday
-                </button>
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 4
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Friday </button>
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 5)}
-                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 5 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Saturday
-                </button>
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 5
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Saturday </button>
                 <button
                   type="button"
                   on:click={() => (show.meta.day = 6)}
-                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show.meta.day == 6 ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                  Sunday
-                </button>
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.day == 6
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> Sunday </button>
 
                 <!-- <input
                 id="slug"
@@ -345,6 +365,47 @@
                 class="form-input flex-1 block w-full px-3 py-2 rounded-md
                 sm:text-sm sm:leading-5"
                 placeholder="Category..." /> -->
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="slug"
+                class="block text-sm font-medium leading-5 text-gray-500">
+                Active in...
+              </label>
+              <div class="mt-2 flex">
+                <button
+                  type="button"
+                  on:click={() => {
+                    show.meta.active = show.meta.active || [];
+                    if (show.meta.active.includes("2020-21-sem-1")) {
+                      show.meta.active = show.meta.active.filter(
+                        (s) => s != "2020-21-sem-1"
+                      );
+                    } else {
+                      show.meta.active = [...show.meta.active, "2020-21-sem-1"];
+                    }
+                  }}
+                  class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.active && show.meta.active.includes('2020-21-sem-1')
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> 2020/21 Semester 1 </button>
+                <button
+                  type="button"
+                  on:click={() => {
+                    show.meta.active = show.meta.active || [];
+                    if (show.meta.active.includes("2020-21-sem-2")) {
+                      show.meta.active = show.meta.active.filter(
+                        (s) => s != "2020-21-sem-2"
+                      );
+                    } else {
+                      show.meta.active = [...show.meta.active, "2020-21-sem-2"];
+                    }
+                  }}
+                  class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {show
+                    .meta.active && show.meta.active.includes('2020-21-sem-2')
+                    ? 'bg-blue-400 text-white'
+                    : 'text-gray-700'}"> 2020/21 Semester 2 </button>
               </div>
             </div>
           {/if}
@@ -360,7 +421,8 @@
                 id="description"
                 rows="3"
                 class="form-textarea block w-full transition duration-150
-                ease-in-out sm:text-sm sm:leading-5 resize-none" />
+                ease-in-out sm:text-sm sm:leading-5 resize-none"
+              />
             </div>
           </div>
         </dl>
