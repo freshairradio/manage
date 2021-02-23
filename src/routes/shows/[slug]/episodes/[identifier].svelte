@@ -115,6 +115,7 @@
       "https://media-worker.freshair.radio/process",
       {},
       {
+        show: show.slug,
         audio: episode.audio,
         update_url: `https://api.freshair.radio/shows/${show.identifier}/episodes/${episode.identifier}/meta`
       }
