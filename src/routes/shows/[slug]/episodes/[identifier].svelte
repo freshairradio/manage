@@ -124,14 +124,15 @@
 </script>
 
 <svelte:head>
-  <title>{show ? show.title : '...'}</title>
+  <title>{show ? show.title : "..."}</title>
 </svelte:head>
 {#if show}
   <div class="md:flex md:items-center md:justify-between" in:fade>
     <div class="flex-1 min-w-0">
       <h2
         class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl mt-1
-        sm:leading-9 sm:truncate">
+        sm:leading-9 sm:truncate"
+      >
         {show.title}
       </h2>
     </div>
@@ -150,7 +151,8 @@
           text-sm leading-5 font-medium rounded-md text-white bg-red-600
           hover:bg-red-500 focus:outline-none focus:shadow-outline-red
           focus:border-red-700 active:bg-red-700 transition duration-150
-          ease-in-out">
+          ease-in-out"
+        >
           Delete Episode
         </button>
       </span>
@@ -169,7 +171,8 @@
           <div class="sm:col-span-1">
             <label
               for="name"
-              class="block text-sm font-medium leading-5 text-gray-500">
+              class="block text-sm font-medium leading-5 text-gray-500"
+            >
               Name
             </label>
             <div class="mt-1 flex rounded-md shadow-sm">
@@ -178,13 +181,15 @@
                 bind:value={episode.title}
                 class="form-input flex-1 block w-full px-3 py-2 rounded-md
                 sm:text-sm sm:leading-5"
-                placeholder="Name..." />
+                placeholder="Name..."
+              />
             </div>
           </div>
           <div class="sm:col-span-2">
             <label
               for="description"
-              class="block text-sm font-medium leading-5 text-gray-500">
+              class="block text-sm font-medium leading-5 text-gray-500"
+            >
               Description
             </label>
             <div class="mt-1 max-w-full flex rounded-md shadow-sm">
@@ -193,60 +198,150 @@
                 id="description"
                 rows="3"
                 class="form-textarea block w-full transition duration-150
-                ease-in-out sm:text-sm sm:leading-5 resize-none" />
+                ease-in-out sm:text-sm sm:leading-5 resize-none"
+              />
             </div>
           </div>
           <div class="sm:col-span-2">
             <label
               for="slug"
-              class="block text-sm font-medium leading-5 text-gray-500">
+              class="block text-sm font-medium leading-5 text-gray-500"
+            >
               Broadcast in week starting...
             </label>
             <div class="mt-2 flex">
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-01-17'))}
-                class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-01-17')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-01-17"))}
+                class="flex-grow relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-01-17'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
                 18th Jan
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-01-24'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-01-24')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-01-24"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-01-24'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
                 25th Jan
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-01-31'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-01-31')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-01-31"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-01-31'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
                 1st Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-02-07'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-07')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-02-07"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2  border border-gray-300 bg-white text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-02-07'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
                 8th Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-02-14'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-14')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-02-14"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-02-14'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
                 15th Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-02-21'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-21')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-02-21"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-02-21'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
                 22nd Feb
               </button>
               <button
                 type="button"
-                on:click={() => (episode.scheduling.week = moment('2021-02-28'))}
-                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(episode.scheduling.week).isSame(moment('2021-02-28')) ? 'bg-blue-400 text-white' : 'text-gray-700'}">
-                29th Feb
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-02-28"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-02-28'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
+                1st Mar
               </button>
-            
-
+              <button
+                type="button"
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-03-07"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-03-07'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
+                8th Mar
+              </button>
+              <button
+                type="button"
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-03-14"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-03-14'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
+                15th Mar
+              </button>
+              <button
+                type="button"
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-03-21"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-03-21'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
+                22nd Mar
+              </button>
+              <button
+                type="button"
+                on:click={() =>
+                  (episode.scheduling.week = moment("2021-03-28"))}
+                class="flex-grow -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 {moment(
+                  episode.scheduling.week
+                ).isSame(moment('2021-03-28'))
+                  ? 'bg-blue-400 text-white'
+                  : 'text-gray-700'}"
+              >
+                29th Mar
+              </button>
               <!-- <input
               id="slug"
               bind:value={show.meta.category}
@@ -261,7 +356,8 @@
           <div class="mt-5">
             <div
               class="rounded-md bg-gray-50 px-6 py-5 sm:flex sm:items-start
-              sm:justify-between">
+              sm:justify-between"
+            >
               <div class="sm:flex sm:items-start">
                 <svg
                   class="h-8 w-auto sm:flex-shrink-0 sm:h-6"
@@ -270,22 +366,25 @@
                   stroke-linejoin="round"
                   stroke-width="2"
                   viewBox="0 0 24 24"
-                  stroke="currentColor">
+                  stroke="currentColor"
+                >
                   <path
                     d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010
                     12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0
                     011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0
-                    .891-1.077 1.337-1.707.707L5.586 15z" />
+                    .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
                 </svg>
 
                 <div class="mt-3 sm:mt-0 sm:ml-4">
-
                   <div
                     class="text-sm leading-5 text-gray-600 sm:flex
-                    sm:items-center">
-
+                    sm:items-center"
+                  >
                     <div class="">
-                      {episode.meta && episode.meta.length ? `${(episode.meta.length / 60).toPrecision(2)} minutes` : '...'}
+                      {episode.meta && episode.meta.length
+                        ? `${(episode.meta.length / 60).toPrecision(2)} minutes`
+                        : "..."}
                     </div>
                   </div>
                 </div>
@@ -293,17 +392,24 @@
               <div class="mt-4 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                 <span
                   class="inline-flex items-center px-3 py-0.5 rounded-full
-                  text-sm font-medium leading-5 {episode.meta && episode.meta.published ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
-                  {episode.meta && episode.meta.published ? 'Published' : 'Processing'}
+                  text-sm font-medium leading-5 {episode.meta &&
+                  episode.meta.published
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-yellow-100 text-yellow-800'}"
+                >
+                  {episode.meta && episode.meta.published
+                    ? "Published"
+                    : "Processing"}
                 </span>
               </div>
             </div>
           </div>
-          {#if api.user.role == 'admin'} 
+          {#if api.user.role == "admin"}
             <button
               type="button"
               on:click={triggerProcessing}
-              class="mt-5 flex-grow relative items-center px-4 py-2 w-full text-center block rounded-md shadow shadow-sm  text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 bg-blue-400 text-white">
+              class="mt-5 flex-grow relative items-center px-4 py-2 w-full text-center block rounded-md shadow shadow-sm  text-sm leading-5 font-medium  hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150 bg-blue-400 text-white"
+            >
               Retry Processing
             </button>
           {/if}
@@ -313,20 +419,24 @@
             on:click={chooseFile}
             on:dragenter|preventDefault|stopPropagation={dragenter}
             on:dragover|preventDefault|stopPropagation={dragenter}
-            on:dragleave|preventDefault|stopPropagation={() => (cls = '')}
-            on:drop|preventDefault|stopPropagation={dropFile}>
+            on:dragleave|preventDefault|stopPropagation={() => (cls = "")}
+            on:drop|preventDefault|stopPropagation={dropFile}
+          >
             <input
               bind:this={file}
               on:change={uploadFile}
               type="file"
               accept="audio/mpeg,audio/mp3"
-              class="hidden" />
+              class="hidden"
+            />
             <div
               class="border-2 border-gray-50 {cls} rounded-md bg-gray-50 px-6
-              py-5 sm:flex sm:items-start sm:justify-between relative">
+              py-5 sm:flex sm:items-start sm:justify-between relative"
+            >
               <div
                 class=" absolute bg-blue-500 h-full top-0 left-0"
-                style="width: {percentage}%; transition: width .2s" />
+                style="width: {percentage}%; transition: width .2s"
+              />
               <div class="sm:flex sm:items-start">
                 <svg
                   class="h-8 w-auto sm:flex-shrink-0 sm:h-6"
@@ -335,25 +445,25 @@
                   stroke-linejoin="round"
                   stroke-width="2"
                   viewBox="0 0 24 24"
-                  stroke="currentColor">
+                  stroke="currentColor"
+                >
                   <path
                     d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010
                     12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0
                     011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0
-                    .891-1.077 1.337-1.707.707L5.586 15z" />
+                    .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
                 </svg>
 
                 <div class="mt-3 sm:mt-0 sm:ml-4">
-
                   <div
                     class="text-sm leading-5 text-gray-600 sm:flex
-                    sm:items-center">
-
+                    sm:items-center"
+                  >
                     <div class="sm:mt-0">Drag and drop or click to upload</div>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         {/if}
